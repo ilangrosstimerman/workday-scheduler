@@ -96,3 +96,24 @@ $(".saveBtn").on("click", function() {
 });
 
 loadEvents();
+
+//moment.js portion
+
+let today = moment().format('dddd');
+$("#currentDay").text(today);
+let currentHour = moment().format('HH');
+
+//for loop to pull cols
+
+for(let i=9; i <=17; i++) {
+    const events = $("#" + i);
+    const rowId = events.attr("id");
+    if(currentHour > i) {
+        events.addClass("past");
+    } else if(currentHour == i) {
+        events.addClass("present");
+    } else if (currentHour < i) {
+        events.addClass("future");
+    };
+
+};
