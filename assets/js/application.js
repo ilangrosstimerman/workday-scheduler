@@ -1,7 +1,7 @@
 //define initials
 
-let savedEvents = [];
-let events = {};
+var savedEvents = [];
+var events = {};
 
 //create events
 
@@ -10,7 +10,7 @@ function createEvent(rowId) {
     textAreaEl.val("your event");
     textAreaEl.focus();
     $("#" + rowId).append(textAreaEl);
-}
+};
 
 //edit existing events
 
@@ -20,13 +20,14 @@ function editEvent(rowId) {
     let newEventEl = $("<textarea>").text(eventText);
     eventEl.replaceWith(newEventEl);
     newEventEl.focus();
-}
+};
 
 //save information to local
 
 function saveEvent() {
     localStorage.setItem("events", JSON.stringify(savedEvents));
-}
+};
+
 
 //load information from local
 
@@ -41,11 +42,12 @@ $.each(savedEvents, function (index) {
         let eventEl = $("<p>").text(eventText);
         $(".event#" + rowId).append(eventEl);
     });
-}
- //add saved button
+};
 
+ //add saved button
+ 
 function saveButton(rowId) {
-    let eventEl = $("#" + rowId + "textarea");
+    let eventEl = $("#" + rowId + " textarea");
     let eventText = eventEl.val();
     //convert into a p element
     let savedEventEl = $("<p>").text(eventText);
@@ -56,14 +58,13 @@ function saveButton(rowId) {
         //for loop to check for match in array
         for (i = 0; i < savedEvents.length; i++) {
             if (savedEvents[i].rowId === rowId) {
-                console.log("replace");
                 savedEvents.splice(i, 1);
             }
         }
     }
     savedEvents.push(events);
     saveEvent();
-}
+};
 
 //define eventObjHandler
 
@@ -71,8 +72,8 @@ function eventObjHandler(updatedVal, rowId) {
     events = {
         eventVal: updatedVal,
         rowId: rowId
-    };
-}
+    }
+};
 
 //set click fucntionality to cols
 
@@ -99,6 +100,7 @@ $(".saveBtn").on("click", function() {
 
 loadEvents();
 
+
 //moment.js portion
 
 let today = moment().format('dddd');
@@ -116,6 +118,6 @@ for(let i=9; i <=17; i++) {
         events.addClass("present");
     } else if (currentHour < i) {
         events.addClass("future");
-    }
+    };
 
-}
+};
