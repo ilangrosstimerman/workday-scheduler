@@ -41,3 +41,35 @@ $.each(savedEvents, function(index) {
     let eventEl = $("<p>").text(eventText);
     $(`.event#${rowId}`).append(eventEl);
  });
+
+ //add saved button
+
+function saveButton(rowId) {
+    let eventEl = $("#" + rowId + "textarea");
+    let eventText = eventEl.val();
+    //convert into a p element
+    let savedEventEl = $("<p>").text(eventText);
+    let updatedEvent = eventEl.replaceWith(savedEventEl);
+    let updatedVal = updatedEvent.val();
+    if (updatedVal) {
+        eventObjHandler(updatedVal, rowID);
+        //for loop to check for match in array
+        for (i = 0; i < savedEvents.length; i++) {
+            if (savedEvents[i].rowId === rowId) {
+                savedEvents.splice(i, 1);
+            }
+        }
+    }
+
+    savedEvents.push(events);
+    saveEvent();
+}
+
+//define eventObjHandler
+
+function eventObjHandler(updatedVal, rowId) {
+    events = {
+        eventVal: updatedVal,
+        rowId: rowId
+    };
+}
