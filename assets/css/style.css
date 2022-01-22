@@ -70,12 +70,13 @@ textarea{
   transition: all .3s ease-in-out;
 }
 
-.c1 {
+.col-1 {
   display: flex;
+  justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-.c {
-  padding: 15px;
+.col {
+  padding: 10px;
 }
