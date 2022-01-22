@@ -8,6 +8,7 @@ let events = {};
 function createEvent(rowId) {
     let textAreaEl = $("<textarea>");
     textAreaEl.val("your event");
+    textAreaEl.focus();
     $("#" + rowId).append(textAreaEl);
 }
 
@@ -33,15 +34,14 @@ function loadEvents() {
     savedEvents = JSON.parse(localStorage.getItem("events"));
     if (!savedEvents) {
         savedEvents = [];
-    }
 }
-$.each(savedEvents, function(index) {
-    let eventText = savedEvents[index].eventVal;
-    let rowId = savedEvents[index].rowId;
-    let eventEl = $("<p>").text(eventText);
-    $(`.event#${rowId}`).append(eventEl);
- });
-
+$.each(savedEvents, function (index) {
+        let eventText = savedEvents[index].eventVal;
+        let rowId = savedEvents[index].rowId;
+        let eventEl = $("<p>").text(eventText);
+        $(".event#" + rowId).append(eventEl);
+    });
+}
  //add saved button
 
 function saveButton(rowId) {
@@ -52,15 +52,15 @@ function saveButton(rowId) {
     let updatedEvent = eventEl.replaceWith(savedEventEl);
     let updatedVal = updatedEvent.val();
     if (updatedVal) {
-        eventObjHandler(updatedVal, rowID);
+        eventObjHandler(updatedVal, rowId);
         //for loop to check for match in array
         for (i = 0; i < savedEvents.length; i++) {
             if (savedEvents[i].rowId === rowId) {
+                console.log("replace");
                 savedEvents.splice(i, 1);
             }
         }
     }
-
     savedEvents.push(events);
     saveEvent();
 }
@@ -81,9 +81,11 @@ $(".event").on("click", function() {
     let rowId = $(this).attr("id");
     //check if text is present
     if (length == 0) {
+        console.log("new event");
         createEvent(rowId);
     }
     else {
+        console.log("edit event");
         editEvent(rowId);
     }
 });
@@ -114,6 +116,6 @@ for(let i=9; i <=17; i++) {
         events.addClass("present");
     } else if (currentHour < i) {
         events.addClass("future");
-    };
+    }
 
-};
+}
