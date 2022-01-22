@@ -73,3 +73,26 @@ function eventObjHandler(updatedVal, rowId) {
         rowId: rowId
     };
 }
+
+//set click fucntionality to cols
+
+$(".event").on("click", function() {
+    let length = $(this).html().length;
+    let rowId = $(this).attr("id");
+    //check if text is present
+    if (length == 0) {
+        createEvent(rowId);
+    }
+    else {
+        editEvent(rowId);
+    }
+});
+
+//set save button click functionality
+
+$(".saveBtn").on("click", function() {
+    let rowId = $(this).siblings()[1].getAttribute("id");
+    saveButton(rowId);
+});
+
+loadEvents();
